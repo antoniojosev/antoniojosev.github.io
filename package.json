@@ -3,7 +3,7 @@
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://antoniovilav.github.io/portfolio",
+  "homepage": "https://antoniojosev.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
