@@ -1,3 +1,10 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+# Proxy para redirigir /next al segundo proyecto
+[[redirects]]
+  from = "/next/*"
+  to = "https://neon-pika-de5689.netlify.app/:splat"
+  status = 200
+  force = true
