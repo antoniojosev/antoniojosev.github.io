@@ -3,8 +3,9 @@
   publish = "dist"
 
 # Proxy para redirigir /next al segundo proyecto
-[[redirects]]
-  from = "/next/*"
-  to = "https://neon-pika-de5689.netlify.app/:splat"
-  status = 200
-  force = false
+# TEMPORALMENTE DESHABILITADO para renovar certificado SSL
+# [[redirects]]
+#   from = "/next/*"
+#   to = "https://neon-pika-de5689.netlify.app/:splat"
+#   status = 200
+#   force = false
