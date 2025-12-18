@@ -3,69 +3,75 @@ import { useLanguage } from '../hooks/useLanguage';
 
 export default function Experience() {
   const { t } = useLanguage();
+
   const experiences = [
     {
-      role: "Software Engineer",
-      company: "Crabi",
-      period: "Jul. 2024 - Present",
-      location: "Mexico • Remote",
-      description: "Senior Backend Developer specialized in high-scalability software infrastructure and complex architecture design.",
+      role: t('experience.crabi.role'),
+      company: t('experience.crabi.company'),
+      period: t('experience.crabi.period'),
+      location: t('experience.crabi.location'),
+      description: t('experience.crabi.description'),
       achievements: [
-        "Development of distributed systems with Django REST framework",
-        "Implementation of scalable microservices architectures",
-        "Infrastructure optimization for high performance"
+        t('experience.crabi.achievement1'),
+        t('experience.crabi.achievement2'),
+        t('experience.crabi.achievement3'),
+        t('experience.crabi.achievement4')
       ]
     },
     {
-      role: "Senior Backend Developer",
-      company: "GESTOY (SportYeah)",
-      period: "Aug. 2022 - Dec. 2023",
-      location: "Madrid, Spain",
-      description: "Led backend development of SportYeah, an innovative sports social network with advanced real-time communication features.",
+      role: t('experience.sportyeah.role'),
+      company: t('experience.sportyeah.company'),
+      period: t('experience.sportyeah.period'),
+      location: t('experience.sportyeah.location'),
+      description: t('experience.sportyeah.description'),
       achievements: [
-        "Led real-time chat development with messaging, video calls and sockets",
-        "Developed ML-powered content recommendation system",
-        "Implemented stories module and main social network feed",
-        "Collaborated with QA on comprehensive integration testing"
+        t('experience.sportyeah.achievement1'),
+        t('experience.sportyeah.achievement2'),
+        t('experience.sportyeah.achievement3'),
+        t('experience.sportyeah.achievement4'),
+        t('experience.sportyeah.achievement5')
       ]
     },
     {
-      role: "Senior Backend Developer",
-      company: "BlackHost Colombia",
-      period: "Jun. 2022 - Aug. 2022",
-      location: "Colombia",
-      description: "Development of specialized microservices and modules for multiple projects, including medical platforms and remote work solutions.",
+      role: t('experience.blackhost.role'),
+      company: t('experience.blackhost.company'),
+      period: t('experience.blackhost.period'),
+      location: t('experience.blackhost.location'),
+      description: t('experience.blackhost.description'),
       achievements: [
-        "Developed Django microservices for diverse projects",
-        "Implemented massive data loading (CSV, PDF, XLS)",
-        "Built complete monolithic projects for sports and ecommerce",
-        "Database optimization and automated deployment"
+        t('experience.blackhost.achievement1'),
+        t('experience.blackhost.achievement2'),
+        t('experience.blackhost.achievement3'),
+        t('experience.blackhost.achievement4'),
+        t('experience.blackhost.achievement5')
       ]
     },
     {
-      role: "Senior Backend Developer",
-      company: "Fans And Me Social",
-      period: "May. 2022 - Aug. 2022",
-      location: "Spain",
-      description: "Development of social network focused on cryptocurrency and NFT commerce, implementing complex high-traffic modules.",
+      role: t('experience.fans.role'),
+      company: t('experience.fans.company'),
+      period: t('experience.fans.period'),
+      location: t('experience.fans.location'),
+      description: t('experience.fans.description'),
       achievements: [
-        "Developed main feed module and real-time chat system",
-        "Implemented NFT and digital credits trading system",
-        "High-traffic optimization and automated backup",
-        "Developed statistics and monetization modules"
+        t('experience.fans.achievement1'),
+        t('experience.fans.achievement2'),
+        t('experience.fans.achievement3'),
+        t('experience.fans.achievement4'),
+        t('experience.fans.achievement5'),
+        t('experience.fans.achievement6')
       ]
     },
     {
-      role: "System Manager & Full Stack Developer",
-      company: "Distribuidora hipreca",
-      period: "Mar. 2019 - Nov. 2021",
-      location: "Venezuela",
-      description: "Led complete systems department, developing automation solutions and comprehensive business management.",
+      role: t('experience.hipreca.role'),
+      company: t('experience.hipreca.company'),
+      period: t('experience.hipreca.period'),
+      location: t('experience.hipreca.location'),
+      description: t('experience.hipreca.description'),
       achievements: [
-        "Led systems department and data management",
-        "Developed product lifecycle automation systems",
-        "Implemented recommendation system for investment and offers",
-        "Managed inventory, sales and complete digital presence"
+        t('experience.hipreca.achievement1'),
+        t('experience.hipreca.achievement2'),
+        t('experience.hipreca.achievement3'),
+        t('experience.hipreca.achievement4')
       ]
     }
   ];

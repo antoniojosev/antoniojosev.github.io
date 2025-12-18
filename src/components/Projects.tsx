@@ -1,26 +1,49 @@
-import { ExternalLink, Users, Shield } from 'lucide-react';
+import { ExternalLink, Users, Shield, Package } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 export default function Projects() {
   const { t } = useLanguage();
   const projects = [
     {
-      title: "SportYeah - Sports Social Network",
-      category: "Senior Backend",
-      description: "Complete sports-focused social network with real-time chat, video calls, stories system and intelligent content recommendation.",
+      title: t('projects.eaglekit.title'),
+      category: t('projects.eaglekit.category'),
+      description: t('projects.eaglekit.description'),
+      tech: ["Python", "Typer", "Rich", "YAML", "Git", "DDD", "Entry Points", "Testing"],
+      image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=600",
+      metrics: [
+        t('projects.eaglekit.metric1'),
+        t('projects.eaglekit.metric2'),
+        t('projects.eaglekit.metric3')
+      ],
+      icon: Package,
+      github: "https://github.com/antoniojosev/eaglekit"
+    },
+    {
+      title: t('projects.sportyeah.title'),
+      category: t('projects.sportyeah.category'),
+      description: t('projects.sportyeah.description'),
       tech: ["Django", "Django REST", "WebSockets", "PostgreSQL", "Redis", "Machine Learning"],
       image: "https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=600",
-      metrics: ["Real-time chat", "ML System", "Unit testing"],
+      metrics: [
+        t('projects.sportyeah.metric1'),
+        t('projects.sportyeah.metric2'),
+        t('projects.sportyeah.metric3')
+      ],
       icon: Users
     },
     {
-      title: "Multi-vendor Ecommerce",
-      category: "Full Stack",
-      description: "Complete multi-vendor ecommerce platform with session management, authentication roles and advanced product tracking.",
+      title: t('projects.ecommerce.title'),
+      category: t('projects.ecommerce.category'),
+      description: t('projects.ecommerce.description'),
       tech: ["Django", "HTML", "CSS", "JavaScript", "PostgreSQL", "Auth"],
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600",
-      metrics: ["Multi-vendor", "Complete CRUD", "GitHub public"],
-      icon: Shield
+      metrics: [
+        t('projects.ecommerce.metric1'),
+        t('projects.ecommerce.metric2'),
+        t('projects.ecommerce.metric3')
+      ],
+      icon: Shield,
+      github: "https://github.com/antoniovilav/Django-Ecomerce"
     }
   ];
 
@@ -79,9 +102,9 @@ export default function Projects() {
                   </div>
                   
                   <div className="flex gap-4">
-                    {project.title === "Multi-vendor Ecommerce" ? (
-                      <a 
-                        href="https://github.com/antoniovilav/Django-Ecomerce"
+                    {project.github ? (
+                      <a
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-slate-900 hover:text-slate-600 transition-colors font-medium"
