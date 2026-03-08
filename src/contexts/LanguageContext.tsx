@@ -96,9 +96,12 @@ const translations = {
     
     // Projects
     'projects.title': 'Featured Projects',
-    'projects.subtitle': 'Complex systems and scalable platforms that have transformed real user experiences',
+    'projects.subtitle': 'Systems built from scratch to production. Each project represents a distinct technical challenge solved with deliberate architectural decisions.',
     'projects.github': 'View on GitHub',
     'projects.case': 'Case Study',
+    'projects.requestCode': 'Code available on request',
+    'projects.viewLive': 'View live',
+    'projects.install': 'pip install eaglekit',
 
     // Projects - EagleKit
     'projects.eaglekit.title': 'EagleKit - Modular Developer Toolkit',
@@ -241,9 +244,12 @@ const translations = {
     
     // Projects
     'projects.title': 'Proyectos Destacados',
-    'projects.subtitle': 'Sistemas complejos y plataformas escalables que han transformado experiencias de usuarios reales',
+    'projects.subtitle': 'Sistemas construidos desde cero hasta producción. Cada proyecto representa un reto técnico distinto resuelto con decisiones de arquitectura deliberadas.',
     'projects.github': 'Ver en GitHub',
     'projects.case': 'Caso de Estudio',
+    'projects.requestCode': 'Código disponible a solicitud',
+    'projects.viewLive': 'Ver en vivo',
+    'projects.install': 'pip install eaglekit',
 
     // Projects - EagleKit
     'projects.eaglekit.title': 'EagleKit - Kit de Herramientas Modular para Desarrolladores',

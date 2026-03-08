@@ -2,7 +2,13 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        syne: ['Syne', 'sans-serif'],
+        'dm-mono': ['"DM Mono"', 'monospace'],
+        instrument: ['"Instrument Serif"', 'serif'],
+      },
+    },
   },
   plugins: [],
 };
