@@ -12,6 +12,7 @@ import {
   SlidersHorizontal,
   Sparkles,
 } from 'lucide-react';
+import { track } from '../../lib/track';
 
 const PDF_PATH = '/Propuesta-PuntaCana-AntonioVila.pdf';
 
@@ -34,6 +35,10 @@ function useNoIndex() {
 
 export default function PuntaCanaProposal() {
   useNoIndex();
+
+  useEffect(() => {
+    track('view');
+  }, []);
 
   return (
     <div className="min-h-dvh bg-[#0a0a0b] text-[#e8e8ec] font-sans antialiased">
@@ -1065,6 +1070,7 @@ function CaseCard({
       href={caso.href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => track('case_click', { case: caso.id })}
       className="group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors duration-150 hover:border-teal-400/40 md:p-8"
     >
       {/* Header */}
@@ -1380,6 +1386,7 @@ function ContactoSection() {
           <a
             href={PDF_PATH}
             download
+            onClick={() => track('pdf_download')}
             className="inline-flex shrink-0 items-center gap-2 rounded-full border border-teal-400/40 bg-teal-400/[0.06] px-5 py-3 font-mono text-xs uppercase tracking-wider text-teal-400 transition-colors duration-150 hover:bg-teal-400/[0.12]"
           >
             <Download className="size-4" aria-hidden />
@@ -1435,6 +1442,7 @@ function ContactCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => track('contact_click', { channel: label.toLowerCase() })}
       className="group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors duration-150 hover:border-teal-400/40 md:p-8"
     >
       <Icon
