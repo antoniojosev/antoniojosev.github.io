@@ -15,6 +15,7 @@ import {
 import { track } from '../../lib/track';
 
 const PDF_PATH = '/Propuesta-PuntaCana-AntonioVila.pdf';
+const SOURCE   = 'proposal-puntacana';
 
 const VALIDITY = '22 May 2026';
 
@@ -37,7 +38,7 @@ export default function PuntaCanaProposal() {
   useNoIndex();
 
   useEffect(() => {
-    track('view');
+    track(SOURCE, 'view');
   }, []);
 
   return (
@@ -1070,7 +1071,7 @@ function CaseCard({
       href={caso.href}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => track('case_click', { case: caso.id })}
+      onClick={() => track(SOURCE, 'case_click', { case: caso.id })}
       className="group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors duration-150 hover:border-teal-400/40 md:p-8"
     >
       {/* Header */}
@@ -1386,7 +1387,7 @@ function ContactoSection() {
           <a
             href={PDF_PATH}
             download
-            onClick={() => track('pdf_download')}
+            onClick={() => track(SOURCE, 'pdf_download')}
             className="inline-flex shrink-0 items-center gap-2 rounded-full border border-teal-400/40 bg-teal-400/[0.06] px-5 py-3 font-mono text-xs uppercase tracking-wider text-teal-400 transition-colors duration-150 hover:bg-teal-400/[0.12]"
           >
             <Download className="size-4" aria-hidden />
@@ -1442,7 +1443,7 @@ function ContactCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => track('contact_click', { channel: label.toLowerCase() })}
+      onClick={() => track(SOURCE, 'contact_click', { channel: label.toLowerCase() })}
       className="group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6 transition-colors duration-150 hover:border-teal-400/40 md:p-8"
     >
       <Icon

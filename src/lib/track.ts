@@ -21,7 +21,11 @@ function getFingerprint(): string {
   }
 }
 
-export function track(event: string, extra?: Record<string, unknown>): void {
+export function track(
+  source: string,
+  event:  string,
+  extra?: Record<string, unknown>,
+): void {
   if (typeof window === 'undefined') return;
 
   // Skip when Puppeteer renders the page for PDF export — we emulate print
@@ -34,7 +38,7 @@ export function track(event: string, extra?: Record<string, unknown>): void {
     fingerprint: getFingerprint(),
     referrer:    document.referrer || undefined,
     metadata: {
-      source: 'proposal-puntacana',
+      source,
       event,
       path:   window.location.pathname,
       ...extra,
