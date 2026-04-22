@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  # Skip Chrome download during npm install on Netlify.
+  # Puppeteer is only used locally (`npm run build:pdf`), never in CI.
+  PUPPETEER_SKIP_DOWNLOAD = "true"
+
 [functions]
   directory = "netlify/functions"
 
