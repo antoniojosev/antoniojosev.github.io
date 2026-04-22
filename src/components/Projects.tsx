@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Store, ShoppingBag, Terminal, Folder, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import ProjectPanel from './ProjectPanel';
@@ -18,16 +18,44 @@ const STATUS_STYLES: Record<string, string> = {
   wip:   'bg-amber-50 text-amber-700 border-amber-200',
 };
 
+const HASH_PREFIX = '#case/';
+
 export default function Projects() {
   const { t } = useLanguage();
   const [activeProject, setActiveProject] = useState<ProjectData | null>(null);
 
-  const openPanel  = useCallback((p: ProjectData) => setActiveProject(p), []);
-  const closePanel = useCallback(() => setActiveProject(null), []);
+  const openPanel = useCallback((p: ProjectData) => {
+    setActiveProject(p);
+    window.history.replaceState(null, '', `${HASH_PREFIX}${p.id}`);
+  }, []);
+
+  const closePanel = useCallback(() => {
+    setActiveProject(null);
+    if (window.location.hash.startsWith(HASH_PREFIX)) {
+      window.history.replaceState(null, '', '#projects');
+    }
+  }, []);
+
+  // Deep link: if URL hash is #case/<id>, open that panel and scroll the section into view.
+  useEffect(() => {
+    const sync = () => {
+      const hash = window.location.hash;
+      if (!hash.startsWith(HASH_PREFIX)) return;
+      const id = decodeURIComponent(hash.slice(HASH_PREFIX.length));
+      const project = PROJECTS.find((p) => p.id === id);
+      if (project) {
+        setActiveProject(project);
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+    sync();
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, []);
 
   return (
     <>
-      <section className="py-24 bg-slate-50">
+      <section id="projects" className="py-24 bg-slate-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
 
