@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Store, ShoppingBag, Terminal, Folder, ArrowUpRight, ExternalLink } from 'lucide-react';
+import { Store, ShoppingBag, Terminal, Calculator, Folder, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import ProjectPanel from './ProjectPanel';
 import { PROJECTS } from './projectsData';
@@ -10,6 +10,7 @@ const PROJECT_VISUALS: Record<string, { Icon: React.ElementType; gradient: strin
   biolinkstore:      { Icon: Store,       gradient: 'from-lime-400 to-emerald-500' },
   repuestosOriente:  { Icon: ShoppingBag, gradient: 'from-sky-400 to-cyan-500'    },
   eaglekit:          { Icon: Terminal,    gradient: 'from-amber-400 to-orange-500' },
+  venekambio:        { Icon: Calculator,  gradient: 'from-orange-500 to-rose-500' },
 };
 
 const STATUS_STYLES: Record<string, string> = {

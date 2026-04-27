@@ -294,6 +294,54 @@ const EagleKitDiagram = () => (
   </div>
 );
 
+const VenekambioDiagram = () => (
+  <div>
+    <DiagramLabel>Cliente puro · 4 APIs paralelas · Bs como pivote</DiagramLabel>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', overflowX: 'auto', paddingBottom: '0.75rem', paddingRight: '1rem', marginRight: '-1rem' }}>
+      <ServiceNode icon="🇻🇪" name="dolarapi" sublabel="BCV · EUR · MON" badge="3 oficiales" badgeColor="#65c8f5" />
+      <FlowArrow label="Future.wait" />
+      <ServiceNode icon="📱" name="Cliente" sublabel="Flutter / Nuxt" badge="sin backend" badgeColor="#E87722" />
+      <FlowArrow label="Future.wait" />
+      <ServiceNode icon="₿" name="criptoya" sublabel="USDT · ETH" badge="2 P2P" badgeColor="#c8f565" />
+    </div>
+
+    <div style={{ marginTop: '1.25rem', background: '#0f172a', border: '1px solid #334155', borderRadius: '12px', padding: '1rem 1.25rem' }}>
+      <div style={{ fontSize: '0.6rem', color: '#64748b', letterSpacing: '0.12em', textTransform: 'uppercase' as const, marginBottom: '0.875rem' }}>Conversión triangulada · una entrada, todas las tasas</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {[
+          ['1', <span key="1">Usuario teclea monto + elige moneda base (ej. <code style={{ background: 'rgba(232,119,34,0.1)', color: '#E87722', padding: '0.05rem 0.35rem', borderRadius: '4px', fontFamily: '"DM Mono", monospace', fontSize: '0.85em' }}>250 USDT</code>)</span>],
+          ['2', <span key="2">El motor triangula <code style={{ background: 'rgba(232,119,34,0.1)', color: '#E87722', padding: '0.05rem 0.35rem', borderRadius: '4px', fontFamily: '"DM Mono", monospace', fontSize: '0.85em' }}>from → Bs → to</code> contra <strong style={{ color: '#e2e8f0' }}>RatesSnapshot</strong> inmutable</span>],
+          ['3', <span key="3">Render paralelo en 6 monedas: <strong style={{ color: '#e2e8f0' }}>Bs · BCV · EUR · MON · USDT · ETH</strong></span>],
+          ['4', <span key="4">Hero card destacada para la base + chip strip secundario con las otras 5 ya calculadas</span>],
+          ['5', <span key="5">Sin scroll, sin tabs, sin segundo tap</span>],
+        ].map(([n, label]) => (
+          <div key={String(n)} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.75rem' }}>
+            <span style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'rgba(232,119,34,0.12)', border: '1px solid rgba(232,119,34,0.3)', color: '#E87722', fontSize: '0.6rem', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.05rem' }}>{n}</span>
+            <span style={{ color: '#cbd5e1', lineHeight: 1.5 }}>{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div style={{ marginTop: '1rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#334155', borderRadius: '10px', overflow: 'hidden' }}>
+      {[
+        { title: 'App móvil', dot: '#E87722', items: ['📱 Flutter · Material 3', '🦦 Riverpod · state mgmt', '💾 SharedPreferences'] },
+        { title: 'Landing web', dot: '#c8f565', items: ['🟢 Nuxt 4 · SSG', '📘 TypeScript estricto', '☁️ CDN estático'] },
+        { title: 'Operación', dot: '#65c8f5', items: ['🚫 Sin backend', '💸 $0/mes', '🔒 Privacy by design'] },
+      ].map(({ title, dot, items }) => (
+        <div key={title} style={{ background: '#0f172a', padding: '1rem' }}>
+          <div style={{ fontSize: '0.6rem', color: '#64748b', letterSpacing: '0.12em', textTransform: 'uppercase' as const, marginBottom: '0.625rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: dot }} />
+            {title}
+          </div>
+          {items.map(item => <div key={item} style={{ fontSize: '0.75rem', color: '#94a3b8', padding: '0.15rem 0' }}>{item}</div>)}
+        </div>
+      ))}
+    </div>
+
+  </div>
+);
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface Metric { value: string; label: string; }
@@ -843,6 +891,316 @@ def get_total(self):
     ],
     links: [
       { text: 'Ver en GitHub', href: 'https://github.com/antoniojosev/eaglekit', primary: true },
+    ],
+  },
+
+  {
+    id: 'venekambio',
+    index: '04',
+    status: 'Live · app en aprobación de Play Store',
+    statusType: 'live',
+    title: 'Venekambio',
+    typeLabels: ['Calculadora cambiaria', 'Mobile + Web', 'Multi-currency'],
+    description: 'Calculadora cambiaria multi-tasa para el comerciante venezolano. Una sola entrada, todas las tasas a la vez. Construida con un presupuesto cercano a $0 y operada al mismo nivel.',
+    stackPills: ['Flutter', 'Riverpod', 'Nuxt 4 SSG', 'TypeScript', 'GA4', 'CDN estático'],
+    color: '#E87722',
+    tag: { text: 'Calculator · Live', bg: 'rgba(232,119,34,0.12)', color: '#E87722' },
+    subtitle: 'Calculadora cambiaria multi-tasa para el comerciante venezolano. Una sola entrada, todas las tasas a la vez. Sin login, sin servidor, $0/mes operativo.',
+    problem: 'En cualquier establecimiento venezolano se manejan varias tasas a la vez. El comerciante informal compra mercancía a paralelo (USDT) y vende a BCV; el cliente paga en bolívares y mentalmente compara contra BCV para validar si vale la pena. Las apps existentes resuelven una conversión a la vez (A → B), obligando a repetir tres o cuatro veces. En caja, frente al cliente, ese flujo no sobrevive a la fricción real.',
+    metrics: [
+      { value: '$0/mes', label: 'OPEX en producción' },
+      { value: '6 monedas', label: 'Multi-currency' },
+      { value: 'Sin backend', label: 'Cliente puro' },
+    ],
+    diagram: <VenekambioDiagram />,
+    challenges: [
+      {
+        num: '01',
+        title: 'Multi-tasa simultánea — una entrada, todas las tasas en paralelo',
+        subtitle: 'Snapshot inmutable · render paralelo · sin segundo tap',
+        body: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Lo que parece simple — <em>"convertir Bs a USDT"</em> — se vuelve insuficiente cuando se observa cómo se hace un cálculo cambiario real en Venezuela.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>El comerciante informal compra mercancía al <Strong>paralelo (USDT)</Strong> y debe vender al <Strong>BCV</Strong>, que es el dólar de referencia legal del país. Para no perder ganancia, necesita saber frente al cliente y en segundos: <em>"si cobro este precio en bolívares, ¿cuánto me queda en USDT después del cambio?"</em> — y a veces <em>"¿cuánto sería en EUR para acercar el precio a mi tasa de compra?"</em>. El cliente, por su parte, ve el precio en Bs, lo compara mentalmente contra el BCV para validar si vale la pena, y si tiene ahorros en USDT calcula cuánto debe cambiar para alcanzar ese monto. Es el <Strong>top 5 de casos de uso diario</Strong> de un cálculo cambiario en Venezuela, y ocurre en cada caja, kiosko y mercado.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Las apps existentes resuelven una conversión a la vez: A → B. Eso obliga al usuario a repetir la operación tres o cuatro veces, o a saltar entre tabs. En caja, frente al cliente, ninguno de esos flujos sobrevive a la fricción real.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>La calculadora de Venekambio no produce un resultado, produce un snapshot.</Strong> Cuando el usuario teclea un monto y elige una moneda base, el motor corre la conversión en paralelo contra las 6 monedas soportadas (Bs, BCV, EUR, MON, USDT, ETH) a partir de un mismo <Code accent="#E87722">RatesSnapshot</Code> inmutable.</p>
+            <div style={{ margin: '0.875rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto' }}>
+              <div style={{ color: '#64748b', marginBottom: '0.4rem' }}>// web/composables/useConvert.ts</div>
+              <div><span style={{ color: '#c084fc' }}>const</span> results = currencies.map(<span style={{ color: '#65c8f5' }}>(code)</span> {'=>'}</div>
+              <div>{'  '}convert(value, baseCode, code, snapshot.asRateMap())</div>
+              <div>)</div>
+            </div>
+            <div style={{ margin: '0.5rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto' }}>
+              <div style={{ color: '#64748b', marginBottom: '0.4rem' }}>// app/lib/core/conversion/convert.dart</div>
+              <div><span style={{ color: '#c084fc' }}>final</span> results = visibleCodes.map(</div>
+              <div>{'  '}<span style={{ color: '#65c8f5' }}>(code)</span> {'=>'} convert(value, baseCode, code, snap),</div>
+              <div>).toList();</div>
+            </div>
+            <p style={{ margin: '0.75rem 0', lineHeight: 1.75 }}>La conversión es pura, triangulada por <Strong>Bs como pivote universal</Strong> (<Code accent="#E87722">from → Bs → to</Code>): sin estado, idempotente, replicada de forma idéntica en TypeScript (Nuxt) y Dart (Flutter). Calcular 6 resultados frente a 1 es coste computacional marginal — el coste real está en el fetch inicial de las 4 APIs públicas, que ocurre una sola vez por sesión y se mantiene en memoria.</p>
+            <SolutionBox accent="#E87722">
+              El usuario hace UN cálculo y ve TODAS las tasas en pantalla a la vez. Un display hero para la moneda destacada, un chip strip secundario con las otras ya calculadas. Sin scroll, sin tabs, sin segundo tap.
+            </SolutionBox>
+            <Note variant="warning">Trade-off: la pantalla muestra simultáneamente más números que cualquier competidor. Se compensa con jerarquía visual fuerte y filtrado opcional desde Settings — el usuario apaga las monedas que no usa.</Note>
+          </>
+        ),
+      },
+      {
+        num: '02',
+        title: 'Modelo Rate dual — una tasa, dos tipos de fuente',
+        subtitle: 'buy/sell solo en P2P · bsPerUnit como valor canónico',
+        body: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Lo que parece simple — <em>"modelar una tasa de cambio"</em> — se vuelve más interesante cuando se observa que las 6 monedas soportadas no funcionan igual.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>El BCV publica un decreto del banco central: un solo número, sin spread. Lo mismo el EUR oficial y el "Monitor" paralelo. Las monedas P2P (USDT, ETH) no son números, son libros de órdenes: existe un <Strong>bid</Strong> real y un <Strong>ask</Strong> real, y la diferencia entre ambos es información útil para el usuario que va a operar.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Si el modelo trata todas las tasas igual, una de dos cosas pasa: o pierdes el spread real del P2P aplastándolo a un único promedio, o inventas un spread fantasma para el BCV donde no existe. Las dos son malas — la primera por información, la segunda por honestidad con el dato.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>La decisión fue un tipo <Code accent="#E87722">Rate</Code> único con tres lados</Strong> (<Code accent="#E87722">buy</Code>, <Code accent="#E87722">sell</Code>, <Code accent="#E87722">avg</Code>) <Strong>y un campo separado <Code accent="#E87722">bsPerUnit</Code> como valor canónico para conversión.</Strong> Para fuentes oficiales el modelo asigna <Code accent="#E87722">avg = buy = sell</Code>. Para P2P guarda <Code accent="#E87722">buy</Code> y <Code accent="#E87722">sell</Code> reales del libro y calcula <Code accent="#E87722">avg = (buy+sell)/2</Code>.</p>
+            <div style={{ margin: '0.875rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto', whiteSpace: 'pre' as const }}>
+              <span style={{ color: '#64748b' }}>// web/types/rate.ts</span>{'\n'}
+              <span style={{ color: '#c084fc' }}>export interface</span> <span style={{ color: '#65c8f5' }}>Rate</span> {'{'}{'\n'}
+              {'  '}code: <span style={{ color: '#65c8f5' }}>CurrencyCode</span>      <span style={{ color: '#475569' }}>// 'BS' | 'BCV' | 'EUR' | 'USDT' | 'ETH' | 'MON'</span>{'\n'}
+              {'  '}bsPerUnit: <span style={{ color: '#65c8f5' }}>number</span>       <span style={{ color: '#475569' }}>// Valor canónico para conversión</span>{'\n'}
+              {'  '}buy: <span style={{ color: '#65c8f5' }}>number</span>             <span style={{ color: '#475569' }}>// Bid real (P2P) o avg (oficial)</span>{'\n'}
+              {'  '}sell: <span style={{ color: '#65c8f5' }}>number</span>            <span style={{ color: '#475569' }}>// Ask real (P2P) o avg (oficial)</span>{'\n'}
+              {'  '}avg: <span style={{ color: '#65c8f5' }}>number</span>{'\n'}
+              {'  '}history7d: <span style={{ color: '#65c8f5' }}>number</span>[]{'\n'}
+              {'  '}timestamp: <span style={{ color: '#65c8f5' }}>number</span>{'\n'}
+              {'}'}
+            </div>
+            <div style={{ margin: '0.5rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto', whiteSpace: 'pre' as const }}>
+              <span style={{ color: '#64748b' }}>// app/lib/domain/entities/rate.dart</span>{'\n'}
+              <span style={{ color: '#c084fc' }}>enum</span> <span style={{ color: '#65c8f5' }}>RateSide</span> {'{ buy, sell, avg }'}{'\n\n'}
+              <span style={{ color: '#c084fc' }}>class</span> <span style={{ color: '#65c8f5' }}>Rate</span> {'{'}{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>final</span> <span style={{ color: '#65c8f5' }}>double</span> bsPerUnit;{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>final</span> <span style={{ color: '#65c8f5' }}>double</span> buy, sell, avg;{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>final</span> List{'<'}<span style={{ color: '#65c8f5' }}>double</span>{'>'} history7d;{'\n\n'}
+              {'  '}<span style={{ color: '#65c8f5' }}>double</span> valueFor(<span style={{ color: '#65c8f5' }}>RateSide</span> side) ={'>'}{'\n'}
+              {'      '}side == RateSide.buy ? buy{'\n'}
+              {'      '}: side == RateSide.sell ? sell : avg;{'\n'}
+              {'}'}
+            </div>
+            <p style={{ margin: '0.75rem 0', lineHeight: 1.75 }}>Encima del modelo va <Strong>Bs como pivote universal</Strong>. Toda conversión triangula <Code accent="#E87722">from → Bs → to</Code> usando <Code accent="#E87722">bsPerUnit</Code>. Esto evita una matriz n×n de pares (6 monedas serían 30 conversiones); con un solo valor por moneda contra Bs basta. Cinco líneas, sin estado, idempotente, con guard contra <Code accent="#E87722">division by zero</Code> cuando una tasa falla en su fetch.</p>
+            <SolutionBox accent="#E87722">
+              El modelo respeta cómo funciona cada fuente real (P2P con spread, oficial sin spread) sin pretender uniformidad falsa. La conversión queda triangulada en una función pura replicada idéntica entre TypeScript (Nuxt) y Dart (Flutter).
+            </SolutionBox>
+            <Note variant="warning">Trade-off: el código de conversión está duplicado entre Dart y TS. Un package compartido cross-language sería overkill — exigiría build pipeline solo para 5 líneas y rompería $0 OPEX. El campo <Code accent="#E87722">history7d</Code> hoy es un placeholder hasta tener fuente con histórico real (ver retrospectiva).</Note>
+          </>
+        ),
+      },
+      {
+        num: '03',
+        title: 'Diseño para baja literacia digital',
+        subtitle: 'Sin login · sin formularios · números siempre legibles',
+        body: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Lo que parece simple — <em>"una calculadora de tasas"</em> — se vuelve un problema de diseño cuando el usuario no es un dev probando una herramienta, sino un comerciante de mercado que nunca ha instalado una app antes.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>El público objetivo en Venezuela tiene tres rasgos que no son negociables al diseñar: <Strong>resistencia previa a herramientas digitales</Strong>, <Strong>baja experiencia con interfaces</Strong>, y en muchos casos <Strong>dificultad para leer textos largos</Strong>. Una app pensada para developers y otra pensada para este usuario son dos productos distintos. Cualquier paso de fricción — un onboarding de tres pantallas, un formulario de registro, un menú anidado — es razón suficiente para que el usuario cierre la app y no vuelva.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Las decisiones de producto se tomaron con ese filtro:</p>
+            <Steps accent="#E87722" items={[
+              ['1', <span key="1"><Strong>Sin login, sin cuentas, sin onboarding.</Strong> El usuario abre la app y la primera pantalla es la calculadora con tasas ya cargadas. Todo el estado vive local: <Code accent="#E87722">SharedPreferences</Code> en Flutter, <Code accent="#E87722">localStorage</Code> en Nuxt. Cero fricción de entrada y $0 de OPEX en servicios de auth.</span>],
+              ['2', <span key="2"><Strong>Sin formularios complejos.</Strong> No hay textfields para "introducir el monto"; hay un keypad numérico grande directo bajo el display. El módulo de Pago Móvil (4 datos: banco, cédula, teléfono, nombre) tampoco usa validaciones que interrumpan.</span>],
+              ['3', <span key="3"><Strong>Números siempre legibles.</Strong> El display hero parte de 64 px en app y <Code accent="#E87722">clamp(38px, 4.5vw, 52px)</Code> responsive en web, y baja por escala (0.82× y 0.7× como piso) cuando el resultado se alarga. Nunca queda truncado.</span>],
+              ['4', <span key="4"><Strong>Tap targets ≥ 44 × 44 px</Strong> (52 × 52 en "Modo grande" opcional). Es el mínimo que documenta WCAG 2.5.5 Target Size y que aplican Material Design y Apple HIG. Tiene base normativa, no es decisión arbitraria.</span>],
+              ['5', <span key="5"><Strong>Contraste AA garantizado por paleta.</Strong> Los tokens base (<Code accent="#E87722">ink #1A1613</Code> sobre <Code accent="#E87722">bg #FAF6F0</Code>) cumplen WCAG AA antes de elegir componentes. Se eligió ya cumpliendo, no se "validó después".</span>],
+            ]} />
+            <div style={{ margin: '0.875rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto', whiteSpace: 'pre' as const }}>
+              <span style={{ color: '#64748b' }}>// app/lib/presentation/widgets/display_number.dart</span>{'\n'}
+              <span style={{ color: '#c084fc' }}>static</span> <span style={{ color: '#65c8f5' }}>double</span> scaleFor(<span style={{ color: '#65c8f5' }}>String</span> formatted) {'{'}{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>final</span> len = formatted.length;{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>if</span> (len {'>'} 12) <span style={{ color: '#c084fc' }}>return</span> 0.7;{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>if</span> (len {'>'} 9) <span style={{ color: '#c084fc' }}>return</span> 0.82;{'\n'}
+              {'  '}<span style={{ color: '#c084fc' }}>return</span> 1;{'\n'}
+              {'}'}
+            </div>
+            <SolutionBox accent="#E87722">
+              La app no exige al usuario aprender nada para que el primer cálculo sea exitoso. Abre, teclea, ve el resultado en todas las tasas a la vez. Cero pasos previos, cero registros, cero menús que descubrir.
+            </SolutionBox>
+            <Note variant="info">Trade-off: la interfaz tiene menos features visibles que un competidor convencional. No hay historial gráfico, alertas push, social features ni perfil. Es deliberado — cada feature adicional es una superficie nueva que el usuario tiene que aprender. Tutorial educativo, ayuda con videos y tasa manual están en Roadmap v1.</Note>
+          </>
+        ),
+      },
+      {
+        num: '04',
+        title: 'Sin backend — 4 APIs paralelas con fallback graceful',
+        subtitle: 'Cliente puro frente a fuentes inestables · privacy by design',
+        body: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Lo que parece simple — <em>"mostrar las tasas de cambio actuales"</em> — se vuelve interesante cuando se observa que las tasas no vienen de una fuente, vienen de cuatro, ninguna controlada por mí, ninguna con SLA público:</p>
+            <Steps accent="#E87722" items={[
+              ['•', <span key="a"><Code accent="#E87722">ve.dolarapi.com/v1/cotizaciones</Code> → BCV USD oficial, EUR oficial</span>],
+              ['•', <span key="b"><Code accent="#E87722">ve.dolarapi.com/v1/dolares/paralelo</Code> → Monitor (MON)</span>],
+              ['•', <span key="c"><Code accent="#E87722">criptoya.com/api/binancep2p/USDT/VES/1</Code> → USDT P2P</span>],
+              ['•', <span key="d"><Code accent="#E87722">criptoya.com/api/binancep2p/ETH/VES/1</Code> → ETH P2P</span>],
+            ]} />
+            <p style={{ margin: '0.875rem 0 0.75rem', lineHeight: 1.75 }}>La construcción tradicional sería un backend propio que agregue las cuatro fuentes, las normalice, las cachee y exponga un único endpoint estable. Pero ese backend significa un servidor 24/7, pipeline de deploy, capa de auth/rate-limiting, DB para histórico, y por encima de todo: <Strong>OPEX recurrente</Strong>. Para una app cuyo público objetivo es venezolano y de bajo poder adquisitivo, ese costo recurrente convierte al producto en algo que necesita monetizarse para sobrevivir, y la monetización agrega más fricción al que menos puede asumirla.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>La decisión fue eliminar el backend completo.</Strong> El cliente — tanto la app Flutter como el landing Nuxt — consume las 4 APIs directamente, en paralelo, en cada apertura.</p>
+            <div style={{ margin: '0.875rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.875rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', lineHeight: 1.7, color: '#94a3b8', overflowX: 'auto', whiteSpace: 'pre' as const }}>
+              <span style={{ color: '#64748b' }}>// app/lib/data/repositories/remote_rates_repository.dart</span>{'\n'}
+              <span style={{ color: '#c084fc' }}>final</span> results = <span style={{ color: '#c084fc' }}>await</span> Future.wait([{'\n'}
+              {'  '}_safeGet(_dolarApiCotizaciones),{'\n'}
+              {'  '}_safeGet(_dolarApiParalelo),{'\n'}
+              {'  '}_safeGet(_criptoyaUsdt),{'\n'}
+              {'  '}_safeGet(_criptoyaEth),{'\n'}
+              ], eagerError: <span style={{ color: '#f5c865' }}>false</span>);
+            </div>
+            <p style={{ margin: '0.75rem 0', lineHeight: 1.75 }}><Code accent="#E87722">_safeGet</Code> envuelve cada fetch en <Code accent="#E87722">try/catch</Code> con timeout de 5 s y devuelve <Code accent="#E87722">null</Code> si la fuente falla, sin propagar el error al resto. Si BCV cae pero USDT responde, el snapshot llega con USDT poblado y BCV en <Code accent="#E87722">0</Code> — la UI marca la moneda sin tasa como deshabilitada en vez de mostrar un error de pantalla completa.</p>
+            <SolutionBox accent="#E87722">
+              Sin backend significa $0 de OPEX, privacy by design (no hay servidor recolectando ni perfilando peticiones), y sin punto único de falla — si una API cae, las otras siguen sirviendo al usuario. La latencia inicial al primer cálculo es ligeramente más alta que con un endpoint cacheado, pero el fetch ocurre una sola vez por sesión y se mantiene en memoria.
+            </SolutionBox>
+            <Note variant="warning">Trade-off: sin retry automático ni exponential backoff (decisión consciente — un retry largo es peor que un valor 0 con toggle visible para reintentar). Sin sincronización cross-user. Sin offline mode robusto si la primera apertura falla por completo.</Note>
+          </>
+        ),
+      },
+      {
+        num: '05',
+        title: 'APK directo desde el dominio oficial',
+        subtitle: 'Distribución paralela mientras la app pasa review · sin servidor adicional',
+        body: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Lo que parece simple — <em>"publicar la app en Google Play"</em> — se vuelve un problema de timing cuando se mira el calendario real: la app está actualmente en periodo de aprobación de la Play Store, y ese proceso puede tomar días o semanas. Mientras tanto, el landing ya está live, los usuarios potenciales ya están entrando, y necesitan una vía concreta para usar la app desde el primer día.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Necesitaba un canal paralelo que cumpliera dos cosas: <Strong>cubrir la ventana de espera de la review</Strong>, y <Strong>mantenerse después como alternativa permanente</Strong> al canal de Play Store una vez la aprobación llegue.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>La decisión fue servir el APK directo desde el dominio oficial.</Strong> El archivo vive como static asset en el build de Nuxt:</p>
+            <div style={{ margin: '0.5rem 0', background: '#060c16', border: '1px solid #334155', borderRadius: '10px', padding: '0.7rem 1rem', fontFamily: '"DM Mono", monospace', fontSize: '0.72rem', color: '#E87722' }}>
+              /web/public/downloads/venekambio-latest.apk
+              <span style={{ color: '#475569', marginLeft: '0.875rem' }}>(49 MB)</span>
+            </div>
+            <p style={{ margin: '0.75rem 0', lineHeight: 1.75 }}>URL pública estable: <Code accent="#E87722">venekambio.com/downloads/venekambio-latest.apk</Code>. Servido por el mismo CDN/hosting estático que el landing — sin servidor adicional, sin pipeline aparte. La confianza viene del dominio: <Code accent="#E87722">venekambio.com</Code> es la marca que el usuario ya está visitando, no un repositorio de terceros.</p>
+            <SolutionBox accent="#E87722">
+              Distribución inmediata desde el día uno, sin esperar review, $0 de infraestructura adicional, y un canal de fallback permanente. Cuando la app esté aprobada en Play Store, el APK directo sigue disponible para los usuarios que prefieran descargar fuera de la tienda o que estén en regiones con menos cobertura del store oficial.
+            </SolutionBox>
+            <Note variant="warning">Trade-off: el usuario tiene que activar "Instalar desde fuentes desconocidas" la primera vez. Sin auto-update OTA — al liberar v1.1, el usuario regresa a la web a descargar el nuevo APK. La versión visible en UI ("Android · v1.0") hoy está hardcodeada — el chequeo de versión, la detección Android automática y el flujo de auto-update están en Roadmap v1.</Note>
+          </>
+        ),
+      },
+    ],
+    afterChallenges: (
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', background: 'rgba(232,119,34,0.06)', border: '1px solid rgba(232,119,34,0.18)', borderRadius: '12px', padding: '1.125rem 1.25rem' }}>
+        <span style={{ fontSize: '1.25rem', flexShrink: 0 }}>🇻🇪</span>
+        <div style={{ fontSize: '0.8rem', color: '#e2e8f0', lineHeight: 1.75 }}>
+          <em style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', color: '#E87722', fontSize: '0.92rem' }}>"En caja, frente al cliente, el flujo no sobrevive a la fricción real."</em>
+          <br />
+          <span style={{ color: '#94a3b8' }}>Cada decisión técnica del producto pasa por el mismo filtro: <strong style={{ color: '#e2e8f0' }}>¿esto sirve a un comerciante venezolano que necesita ver cuatro tasas en dos segundos?</strong> Si la respuesta no es directa, la decisión está mal planteada.</span>
+        </div>
+      </div>
+    ),
+    decisions: [
+      {
+        question: '¿Por qué Flutter para la app móvil?',
+        answer: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>La app tenía dos requisitos no negociables: tiene que sentirse fluida en hardware modesto (muchos usuarios venezolanos usan dispositivos económicos), y tiene que cubrir Android <Strong>e iOS</Strong> desde una sola codebase porque mantener dos plataformas nativas paralelas es OPEX que rompe el principio de $0.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>Nativo</Strong> (Kotlin + Swift) quedó descartado por costo: dos codebases, dos ciclos de release, dos sets de bugs. Para un equipo de uno, no es sostenible.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>React Native</Strong> fue una opción viable. Lo descarté por dos razones: el bridge JS añade overhead que se nota en hardware modesto (justo el segmento de mi público objetivo), y la UI de Venekambio depende fuertemente de control fino sobre tipografía, escalas dinámicas y micro-animaciones — cosas que se pueden hacer en RN, pero con más fricción que en Flutter, donde cada widget es propio y no se traduce a <Code accent="#E87722">UIView</Code> o <Code accent="#E87722">ViewGroup</Code> debajo.</p>
+            <p style={{ margin: 0, lineHeight: 1.75 }}><Strong>Flutter ganó</Strong> por compilación AOT a binario nativo (rendimiento sostenido en teléfonos económicos), un set de widgets propio que da control total sobre la jerarquía visual, y experiencia previa propia con el stack — no estaba aprendiendo el stack a la par del proyecto.</p>
+            <Note variant="warning">Trade-off: la app pesa 49 MB, más que su equivalente RN o nativo. Para distribución vía APK directo es algo a vigilar, pero el peso viene del engine de Flutter incluido en el binario y es coste fijo de la decisión, no algo que crezca con features.</Note>
+          </>
+        ),
+      },
+      {
+        question: '¿Por qué Nuxt 4 SSG en lugar de SPA o SSR?',
+        answer: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>El landing tenía tres metas claras: rankear en buscadores en consultas como <em>"calculadora BCV"</em> o <em>"cambio Bs USDT"</em>, cargar rápido en redes venezolanas (que no siempre son las más estables), y respetar el principio de <Strong>$0 OPEX</Strong>.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>SPA quedó descartado</Strong> por SEO. Una SPA sirve HTML vacío al primer load y depende de JavaScript ejecutado en cliente para renderizar el contenido. Los crawlers manejan JS, sí, pero con latencias y tasas de éxito menores que para HTML estático. Para un producto que necesita encontrarse orgánicamente, dejar el SEO al azar del JS rendering no es opción.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>SSR fue la otra alternativa real.</Strong> La descarté por una razón directa: SSR requiere servidor 24/7, y eso rompe $0 OPEX. No hay contenido server-side personalizado que justifique pagar un servidor — las tasas se fetchean del lado cliente y no hay datos privados del usuario que requieran render protegido.</p>
+            <p style={{ margin: 0, lineHeight: 1.75 }}><Strong>SSG ganó</Strong> porque combina las dos mejores propiedades de las otras opciones sin sus costos: HTML pre-rendereado en build (SEO óptimo, TTFB mínimo) servido por CDN gratuito (Netlify, Cloudflare Pages), y reactividad cliente para la calculadora interactiva — que no necesita pre-rendering porque depende de input de usuario en tiempo real.</p>
+            <Note variant="warning">Trade-off: el contenido marketing del landing solo se actualiza al re-buildear y re-deployar. Para una página con cambios mensuales, no diarios, es coste aceptable y se compensa con CI automático en Netlify cuando hay push a <Code accent="#E87722">main</Code>.</Note>
+          </>
+        ),
+      },
+      {
+        question: '¿Por qué dos stacks (Dart + TS) en lugar de unificar?',
+        answer: (
+          <>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}>Existían tres caminos para no tener stack dual: hacerlo todo en Flutter (incluyendo Flutter Web para el landing), hacerlo todo en TypeScript (con una PWA como app móvil), o mantener stacks separados.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>Flutter Web para el landing</Strong> se descartó por SEO. Flutter Web renderiza por defecto con CanvasKit, que pinta pixels sobre canvas en vez de generar DOM real — los crawlers ven una página vacía. El renderer alternativo HTML genera DOM, pero el bundle inicial sigue siendo pesado y el TTI no compite con un landing SSG plano. Para una superficie cuyo trabajo principal es ser encontrada, Flutter Web pierde.</p>
+            <p style={{ margin: '0 0 0.75rem', lineHeight: 1.75 }}><Strong>PWA en lugar de app nativa</Strong> se descartó por dos cosas. Primero, PWA en Android sigue teniendo limitaciones reales en storage local, integración con el launcher y performance en hardware modesto. Segundo, una PWA exige al usuario "agregar a pantalla de inicio" desde el navegador para que aparezca como app — para alguien con baja experiencia digital, ese paso adicional es la misma fricción que un onboarding largo. La app nativa simplemente aparece en el launcher después de instalar el APK.</p>
+            <p style={{ margin: 0, lineHeight: 1.75 }}><Strong>Stack dual ganó</Strong> porque cada superficie usa la herramienta que mejor le sienta: Flutter para móvil donde control fino sobre la UI y rendimiento AOT importan, Nuxt SSG para web donde SEO y velocidad de carga importan.</p>
+            <Note variant="warning">Trade-off: la lógica de conversión se replica en Dart y TS (5 líneas, sin estado, idempotente). Un package compartido cross-language sería overkill — exigiría build pipeline solo para mantener sincronizadas 5 líneas, y rompe $0 OPEX. La duplicación es deuda consciente y barata.</Note>
+          </>
+        ),
+      },
+    ],
+    decisionsNote: (
+      <div style={{
+        display: 'flex',
+        gap: '0.75rem',
+        alignItems: 'flex-start',
+        background: 'rgba(232,119,34,0.04)',
+        border: '1px solid rgba(232,119,34,0.12)',
+        borderRadius: '0.75rem',
+        padding: '1rem 1.125rem',
+        fontSize: '0.8rem',
+        color: '#94a3b8',
+        lineHeight: 1.75,
+      }}>
+        <span style={{ color: '#E87722', fontFamily: '"DM Mono", monospace', fontSize: '0.7rem', flexShrink: 0, paddingTop: '0.15rem', letterSpacing: '0.05em' }}>//</span>
+        <span>La decisión transversal que articula este case study es eliminar OPEX recurrente. Cada decisión arquitectónica que viene a continuación se evaluó también con el filtro: <strong style={{ color: '#e2e8f0', fontWeight: 600 }}>"¿esto exige un servicio mensual?"</strong>. Si la respuesta era sí y existía alternativa razonable, se optó por la alternativa.</span>
+      </div>
+    ),
+    afterDecisions: (
+      <div style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ background: 'rgba(232,119,34,0.05)', borderBottom: '1px solid rgba(232,119,34,0.12)', padding: '0.6rem 1rem', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#E87722', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{ fontFamily: '"DM Mono", monospace' }}>//</span> Stack completo a $0/mes · cada decisión justificada
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1px', background: '#334155' }}>
+          {[
+            { service: 'Hosting web', cost: '$0 · CDN estático', why: 'Nuxt 4 SSG → HTML pre-rendereado servido por Netlify/Cloudflare Pages free tier. Sin servidor 24/7.' },
+            { service: 'Backend', cost: '$0 · no existe', why: 'Cliente puro. Las 4 APIs públicas se consumen directo desde Flutter y Nuxt en cada apertura.' },
+            { service: 'Base de datos', cost: '$0 · local', why: 'SharedPreferences en Flutter, localStorage en Nuxt. Settings e historial viven en el dispositivo del usuario.' },
+            { service: 'Tasas FX', cost: '$0 · APIs públicas', why: 'dolarapi.com (BCV, EUR, MON) y criptoya.com (USDT P2P, ETH P2P). Sin auth, sin API key.' },
+            { service: 'Distribución móvil', cost: '$0 · static asset', why: 'APK servido desde /public/downloads/ del propio landing. Sin Play Store fee mientras pasa review.' },
+            { service: 'Analytics', cost: '$0 · GA4 free', why: 'Plugin Nuxt cliente con DNT respetado y anonymize_ip. Solo en producción.' },
+            { service: 'Auth / cuentas', cost: '$0 · no existe', why: 'No hay login, no hay perfiles. Toda la fricción de auth eliminada por diseño.' },
+          ].map((item) => (
+            <div key={item.service} style={{ background: '#0f172a', padding: '0.875rem 1rem' }}>
+              <div style={{ fontFamily: '"Syne", sans-serif', fontWeight: 700, fontSize: '0.8rem', color: '#e2e8f0', marginBottom: '0.2rem' }}>{item.service}</div>
+              <div style={{ fontSize: '0.6rem', color: '#E87722', marginBottom: '0.3rem' }}>{item.cost}</div>
+              <div style={{ fontSize: '0.68rem', color: '#64748b', lineHeight: 1.55 }}>{item.why}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '0.7rem 1rem', borderTop: '1px solid #334155', background: 'rgba(232,119,34,0.03)', fontSize: '0.7rem', color: '#64748b', lineHeight: 1.6 }}>
+          Único costo recurrente: el dominio <Code accent="#E87722">venekambio.com</Code> (~$10/año vía registrar). El resto del stack opera permanentemente en tiers gratuitos sin techo de uso relevante para el tamaño actual del producto.
+        </div>
+      </div>
+    ),
+    retrospective: [
+      { decision: 'history7d publicado en UI como placeholder (7 copias del avg)', would: <span><Strong>No exponerlo en UI hasta tener el dato real.</Strong> Esconder un placeholder visual en producto vivo crea expectativa que el dato no cumple — preferible no mostrar el chart de 7 días que mostrar uno plano que no informa.</span> },
+      { decision: 'Versión del APK hardcodeada como string en UI ("Android · v1.0")', would: <span>Leer del <Code accent="#E87722">versionName</Code> del Android manifest en build time. Hoy hay <Strong>riesgo de drift</Strong> entre lo que la UI muestra y la versión efectivamente instalada — es trivial de causar y silencioso de detectar.</span> },
+      { decision: 'Función convert() y modelo Rate sin tests unitarios', would: <span>Agregarlos <Strong>desde el primer commit</Strong>. Es código puro, idempotente y triangulado por Bs — el caso ideal para tests automatizados. Hoy depende de validación manual en UI, que escala mal cuando se sumen más monedas o lados (<Code accent="#E87722">buy/sell/avg</Code>).</span> },
+    ],
+    afterRetro: (
+      <div style={{ marginTop: '0.5rem', background: '#0f172a', border: '1px solid #334155', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ background: 'rgba(232,119,34,0.07)', borderBottom: '1px solid rgba(232,119,34,0.18)', padding: '0.5rem 1rem', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#E87722', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{ fontFamily: '"DM Mono", monospace' }}>//</span> Roadmap v1 / v2 · deuda consciente y evolución natural
+        </div>
+        <div style={{ padding: '0.5rem 0' }}>
+          {[
+            { v: 'v1', name: 'Tutorial wizard educativo (app + landing)', why: 'Cada capa adicional debía esperar a que el producto probara primero su valor mínimo. Con uso real en mano, la curva de descubrimiento se atenderá explícitamente.' },
+            { v: 'v1', name: 'Sección de ayuda con videos + imágenes claras', why: 'Contenido pedagógico para baja literacia digital exige formato visual (video, ilustraciones) y storytelling. Se construye con cuidado o no se construye.' },
+            { v: 'v1', name: 'Tasa manual configurable o API personalizada', why: 'Las 4 APIs públicas cubren los casos comunes. La tasa manual resuelve casos avanzados (comerciantes con tasa interna propia) y habilita integraciones futuras.' },
+            { v: 'v1', name: 'history7d real desde fuente con histórico', why: 'Implementado como placeholder hasta encontrar fuente pública que exponga histórico real sin romper $0 OPEX.' },
+            { v: 'v1', name: 'Detección Android automática para promo de descarga', why: 'Hoy el botón de descarga es siempre visible; la detección de UA permite resaltarlo en mobile Android y ocultarlo en iOS / desktop. Esfuerzo bajo, UX más afinada.' },
+            { v: 'v1', name: 'GA tracking en la app (hoy solo web)', why: 'La implementación dual exige cuidado con client_id consistente entre superficies para correlacionar el embudo landing → APK descargado → app abierta.' },
+            { v: 'v2', name: 'Auto-update OTA del APK', why: 'Hoy el usuario regresa a la web a descargar. Auto-update vía in-app update API requiere canal propio o servicio externo — se evalúa contra el principio de $0 OPEX.' },
+          ].map((item) => (
+            <div key={item.name} style={{ display: 'grid', gridTemplateColumns: '52px 1fr', gap: '0.75rem', padding: '0.625rem 1rem', borderTop: '1px solid rgba(51,65,85,0.5)' }}>
+              <span style={{ fontSize: '0.62rem', fontFamily: '"DM Mono", monospace', color: item.v === 'v1' ? '#E87722' : '#94a3b8', background: item.v === 'v1' ? 'rgba(232,119,34,0.1)' : 'rgba(148,163,184,0.08)', borderRadius: '4px', padding: '0.15rem 0.4rem', textAlign: 'center', alignSelf: 'flex-start', marginTop: '0.1rem', height: 'fit-content' }}>{item.v}</span>
+              <div>
+                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#e2e8f0', marginBottom: '0.2rem' }}>{item.name}</div>
+                <div style={{ fontSize: '0.7rem', color: '#64748b', lineHeight: 1.55 }}>{item.why}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: '0.6rem 1rem', borderTop: '1px solid #334155', fontSize: '0.68rem', color: '#64748b', lineHeight: 1.6, fontStyle: 'italic' }}>
+          La priorización v1 vs v2 responde a impacto en la experiencia del usuario nuevo, no al esfuerzo técnico. Tutorial, ayuda visual y tasa manual entran primero porque atacan la fricción específica del público objetivo.
+        </div>
+      </div>
+    ),
+    links: [
+      { text: 'Ver web', href: 'https://www.venekambio.com', primary: true },
+      { text: 'Descargar APK', href: 'https://www.venekambio.com/downloads/venekambio-latest.apk', primary: false },
     ],
   },
 ];
